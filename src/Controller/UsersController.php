@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Users Controller
@@ -12,6 +14,44 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+    
+
+    /**
+     * 認証スルー設定
+     * @param Event $event
+     * @return \Cake\Http\Response|null|void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['add', 'hoge']);
+    }
+    /**
+     * ログイン
+     * @return \Cake\Http\Response|null
+     */
+    public function login()
+    {
+        // $this->viewBuilder()->setlayout('signin');
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(__('ユーザ名もしくはパスワードが間違っています'));
+        }
+    }
+
+    /**
+     * ログアウト
+     * @return \Cake\Http\Response|null
+     */
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
+
     /**
      * Index method
      *
