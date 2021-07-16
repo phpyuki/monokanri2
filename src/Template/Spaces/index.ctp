@@ -4,21 +4,16 @@
  * @var \App\Model\Entity\Space[]|\Cake\Collection\CollectionInterface $spaces
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Space'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Items'), ['controller' => 'Items', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Item'), ['controller' => 'Items', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+
+<?php foreach ($spaces as $space){
+    if ($space->user_id == $authuser['id']) {
+        echo $this->Html->link($space->name,['controller'=>'categories', 'action'=>'list', $space->id,'prefix'=>false],['escape'=>false,'class'=>'btn-outline-secondary btn']);
+    }
+}
+?>
 <div class="spaces index large-9 medium-8 columns content">
     <h3><?= __('Spaces') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table class="table" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>

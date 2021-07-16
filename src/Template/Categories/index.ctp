@@ -1,24 +1,30 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Category[]|\Cake\Collection\CollectionInterface $categories
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Category'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Spaces'), ['controller' => 'Spaces', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Space'), ['controller' => 'Spaces', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Items'), ['controller' => 'Items', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Item'), ['controller' => 'Items', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+<div class="row">
+    <?php foreach ($categories as $category) : ?>
+        <?php if ($category->user_id == $authuser['id'] && !($category->parent_id)) : ?>
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $category->name ?></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <?= $this->Html->link('view', ['controller' => 'categories', 'action' => 'view', $category->id, 'prefix' => false], ['escape' => false, 'class' => '']) ?>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>
 <div class="categories index large-9 medium-8 columns content">
     <h3><?= __('Categories') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table class="table" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
@@ -32,21 +38,21 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($categories as $category): ?>
-            <tr>
-                <td><?= $this->Number->format($category->id) ?></td>
-                <td><?= h($category->name) ?></td>
-                <td><?= $category->has('user') ? $this->Html->link($category->user->id, ['controller' => 'Users', 'action' => 'view', $category->user->id]) : '' ?></td>
-                <td><?= $category->has('space') ? $this->Html->link($category->space->name, ['controller' => 'Spaces', 'action' => 'view', $category->space->id]) : '' ?></td>
-                <td><?= $category->has('parent_category') ? $this->Html->link($category->parent_category->name, ['controller' => 'Categories', 'action' => 'view', $category->parent_category->id]) : '' ?></td>
-                <td><?= h($category->created) ?></td>
-                <td><?= h($category->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]) ?>
-                </td>
-            </tr>
+            <?php foreach ($categories as $category) : ?>
+                <tr>
+                    <td><?= $this->Number->format($category->id) ?></td>
+                    <td><?= h($category->name) ?></td>
+                    <td><?= $category->has('user') ? $this->Html->link($category->user->id, ['controller' => 'Users', 'action' => 'view', $category->user->id]) : '' ?></td>
+                    <td><?= $category->has('space') ? $this->Html->link($category->space->name, ['controller' => 'Spaces', 'action' => 'view', $category->space->id]) : '' ?></td>
+                    <td><?= $category->has('parent_category') ? $this->Html->link($category->parent_category->name, ['controller' => 'Categories', 'action' => 'view', $category->parent_category->id]) : '' ?></td>
+                    <td><?= h($category->created) ?></td>
+                    <td><?= h($category->modified) ?></td>
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]) ?>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
