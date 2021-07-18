@@ -1,16 +1,16 @@
-<div class="">
-    <ul class="mb-auto">
-        <li><?= $this->Html->link(__('List Spaces'), ['controller' => 'Spaces', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Spaces'), ['controller' => 'Spaces', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Items'), ['controller' => 'Items', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Item'), ['controller' => 'Items', 'action' => 'add']) ?></li>
+<div class="sidebar-sticky">
+    <ul class="nav flex-column mb-auto">
+        <li class="nav-item"><?= $this->Html->link(__('List Spaces'), ['controller' => 'Spaces', 'action' => 'index'],['class' => 'nav-link']) ?></li>
+        <li class="nav-item"><?= $this->Html->link(__('New Spaces'), ['controller' => 'Spaces', 'action' => 'add'],['class' => 'nav-link']) ?></li>
+        <li class="nav-item"><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index'],['class' => 'nav-link']) ?></li>
+        <li class="nav-item"><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add'],['class' => 'nav-link']) ?></li>
+        <li class="nav-item"><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index'],['class' => 'nav-link']) ?></li>
+        <li class="nav-item"><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add'],['class' => 'nav-link']) ?></li>
+        <li class="nav-item"><?= $this->Html->link(__('List Items'), ['controller' => 'Items', 'action' => 'index'],['class' => 'nav-link']) ?></li>
+        <li class="nav-item"><?= $this->Html->link(__('New Item'), ['controller' => 'Items', 'action' => 'add'],['class' => 'nav-link']) ?></li>
     </ul>
-    <hr style="height: 1px;">
-    <div class="dropdown">
+    
+    <div class="dropdown mx-3 mt-auto">
         <p><?= $authuser['username'] ?></p>
     </div>
 </div>

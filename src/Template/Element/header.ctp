@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" role="navigation">
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top" role="navigation">
         <div class="container-fluid">
             <a class="navbar-brand" href=" <?= $this->Url->build(['action' => 'index', 'prefix' => false], true); ?> "><?= $this->fetch('title') ?></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
