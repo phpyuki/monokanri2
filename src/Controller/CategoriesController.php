@@ -23,6 +23,7 @@ class CategoriesController extends AppController
     {
         parent::initialize();
         $this->loadModel('Items');
+        $this->loadModel('Spaces');
     }
 
     public function index($id = null)
@@ -36,16 +37,18 @@ class CategoriesController extends AppController
         $this->set(compact('categories'));
     }
 
-    public function list($id = null, $cate_id = null)
+    public function list($spaceId = null, $categoryId = null)
     {
-        if (!empty($cate_id)) {
-            $categories = $this->Categories->find()->where(['parent_id' => $cate_id]);
-            $items = $this->Items->find()->where(['category_id' => $cate_id]);
+        if (!empty($categoryId)) {
+            $currentPlace = $this->Categories->get($categoryId);
+            $categories = $this->Categories->find()->where(['parent_id' => $categoryId])->contain(['ChildCategories']);
+            $items = $this->Items->find()->where(['category_id' => $categoryId]);
         } else {
-            $categories = $this->Categories->find()->where(['space_id' => $id]);
-            $items = $this->Items->find()->where(['space_id' => $id]);
+            $currentPlace = $this->Spaces->get($spaceId);
+            $categories = $this->Categories->find()->where(['space_id' => $spaceId,'parent_id IS' => NULL])->contain(['ChildCategories','items']);
+            $items = $this->Items->find()->where(['space_id' => $spaceId]);
         }
-        $this->set(compact('categories', 'items'));
+        $this->set(compact('currentPlace', 'categories', 'items'));
     }
 
     /**
@@ -69,7 +72,7 @@ class CategoriesController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($spaceId = null, $categoryId = null)
     {
         $category = $this->Categories->newEntity();
         if ($this->request->is('post')) {
@@ -82,8 +85,8 @@ class CategoriesController extends AppController
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
         $users = $this->Categories->Users->find('list', ['limit' => 200]);
-        $spaces = $this->Categories->Spaces->find('list', ['limit' => 200])->where(['user_id' => $this->authuser['id']]);
-        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
+        $spaces = $this->Categories->Spaces->get($spaceId);
+        $parentCategories = $this->Categories->find()->where(['id' => $categoryId])->first();
         $this->set(compact('category', 'users', 'spaces', 'parentCategories'));
     }
 
