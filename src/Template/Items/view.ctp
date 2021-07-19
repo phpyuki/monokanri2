@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Item $item
@@ -7,11 +8,7 @@
 
 <div class="items view large-9 medium-8 columns content">
     <h3><?= h($item->name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($item->name) ?></td>
-        </tr>
+    <table class="table table-sm table-borderd">
         <tr>
             <th scope="row"><?= __('User') ?></th>
             <td><?= $item->has('user') ? $this->Html->link($item->user->id, ['controller' => 'Users', 'action' => 'view', $item->user->id]) : '' ?></td>
@@ -37,8 +34,13 @@
             <td><?= h($item->modified) ?></td>
         </tr>
     </table>
-    <div class="row">
-        <h4><?= __('Memo') ?></h4>
-        <?= $this->Text->autoParagraph(h($item->memo)); ?>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Memo</h5>
+            <p class="card-text"><?= $this->Text->autoParagraph(h($item->memo),); ?></p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
     </div>
 </div>

@@ -26,15 +26,17 @@
 
 <body>
 
-    <?= $this->element('header') ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 d-none d-md-block sidebar" id="sticky-sidebar">
+            <div class="col-md-2 d-none d-md-block sidebar bg-dark" id="sticky-sidebar">
                 <?= $this->element('sidebar') ?>
             </div>
-            <div class="col offset-2 pt-3">
+            <div class="col-md offset-md-2 p-0" class="height">
+                <?= $this->element('header') ?>
                 <?= $this->Flash->render() ?>
-                <?= $this->fetch('content') ?>
+                <div class="main bg-light p-5">
+                    <?= $this->fetch('content') ?>
+                </div>
             </div>
         </div>
     </div>
