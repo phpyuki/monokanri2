@@ -1,6 +1,7 @@
 <h1><?php if ($currentPlace) {
         echo $currentPlace->name;
     } ?></h1>
+
 <div class="container">
     <div class="row row-eq-height">
         <?php foreach ($items as $item) : ?>
@@ -18,7 +19,7 @@
 
 <div class="container">
     <?= $this->Html->link('カテゴリーを追加', ['controller' => 'categories', 'action' => 'add', $currentPlace->space_id,$currentPlace->id, 'prefix' => false], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-    <?= $this->Html->link('アイテムを追加', ['controller' => 'items', 'action' => 'add', 'prefix' => false], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+    <?= $this->Html->link('アイテムを追加', ['controller' => 'items', 'action' => 'add',$currentPlace->space_id,$currentPlace->id, 'prefix' => false], ['escape' => false, 'class' => 'btn btn-primary']) ?>
 </div>
 
 <div class="row">
