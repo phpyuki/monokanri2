@@ -53,6 +53,21 @@ class ItemsTable extends Table
         $this->belongsTo('Categories', [
             'foreignKey' => 'category_id',
         ]);
+
+        $this->addBehavior('Search.Search');
+
+        $this->searchManager()
+		->value('name')
+		->add('search', 'Search.Like', [ 
+			'before' => true,
+			'after' => true,
+			'fieldMode' => 'OR',
+			'comparison' => 'LIKE',
+			'wildcardAny' => '*',
+			'wildcardOne' => '?',
+			'fields' => ['name'],
+		]);
+
     }
 
     /**
