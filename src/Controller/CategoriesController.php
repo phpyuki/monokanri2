@@ -85,9 +85,9 @@ class CategoriesController extends AppController
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
         $users = $this->Categories->Users->find('list', ['limit' => 200]);
-        $spaces = $this->Categories->Spaces->get($spaceId);
-        $parentCategories = $this->Categories->find()->where(['id' => $categoryId])->first();
-        $this->set(compact('category', 'users', 'spaces', 'parentCategories'));
+        $spaces = $this->Items->Spaces->find('list', ['limit' => 200]);
+        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
+        $this->set(compact('category', 'users','spaces', 'parentCategories','spaceId','categoryId'));
     }
 
     /**
