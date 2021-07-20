@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -17,12 +18,22 @@ class ItemsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
+
+    public function initialize()
+    {
+        parent::initialize();
+    }
+
     public function index()
     {
         $this->paginate = [
             'contain' => ['Users', 'Spaces', 'Categories'],
         ];
-        $items = $this->paginate($this->Items);
+
+        $query = $this->Items->find('search', [
+            'search' => $this->request->getQuery()
+        ]);
+        $items = $this->paginate($query);
 
         $this->set(compact('items'));
     }
@@ -56,14 +67,14 @@ class ItemsController extends AppController
             if ($this->Items->save($item)) {
                 $this->Flash->success(__('The item has been saved.'));
 
-                return $this->redirect(['controller' => 'categories', 'action' => 'list',$spaceId,$categoryId]);
+                return $this->redirect(['controller' => 'categories', 'action' => 'list', $spaceId, $categoryId]);
             }
             $this->Flash->error(__('The item could not be saved. Please, try again.'));
         }
         $users = $this->Items->Users->find('list', ['limit' => 200]);
         $spaces = $this->Items->Spaces->find('list', ['limit' => 200]);
         $categories = $this->Items->Categories->find('list', ['limit' => 200]);
-        $this->set(compact('item', 'users', 'spaces', 'categories','spaceId','categoryId'));
+        $this->set(compact('item', 'users', 'spaces', 'categories', 'spaceId', 'categoryId'));
     }
 
     /**
