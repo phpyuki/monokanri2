@@ -12,6 +12,11 @@ use App\Controller\AppController;
  */
 class SpacesController extends AppController
 {
+    public $paginate = [
+    'limit' => 5,
+    'order' => [
+        'Spaces.created' => 'desc'
+    ]];
     /**
      * Index method
      *
@@ -19,10 +24,14 @@ class SpacesController extends AppController
      */
     public function index()
     {
+        $authuser = $this->Auth->user('id');
+
         $this->paginate = [
-            'contain' => ['Users'],
+            'contain' => ['Users','Categories','Items'],
+            'limit' => 6,
         ];
-        $spaces = $this->paginate($this->Spaces);
+        $spaces = $this->Spaces->find()->where(['user_id' => $authuser]);
+        $spaces = $this->paginate($spaces);
 
         $this->set(compact('spaces'));
     }
