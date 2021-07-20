@@ -13,8 +13,8 @@
             echo $this->Form->control('name');
             echo $this->Form->control('memo');
             echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
-            echo $this->Form->control('space_id', ['options' => $spaces]);
-            echo $this->Form->control('category_id', ['options' => $categories, 'empty' => true]);
+            echo $this->Form->control('space_id', ['value' => $spaceId]);
+            echo $this->Form->control('category_id', ['value' => $categoryId, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
