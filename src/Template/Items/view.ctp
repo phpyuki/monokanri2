@@ -37,10 +37,10 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Memo</h5>
-            <p class="card-text"><?= $this->Text->autoParagraph(h($item->memo),); ?></p>
+            <p class="card-text text-justify"><?= $this->Text->autoParagraph(h($item->memo),); ?></p>
         </div>
         <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
+            <small class="text-muted"><?= $item->created ?></small>
         </div>
     </div>
 </div>
