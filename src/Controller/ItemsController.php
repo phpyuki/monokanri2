@@ -48,7 +48,7 @@ class ItemsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($spaceId = null, $categoryId = null)
     {
         $item = $this->Items->newEntity();
         if ($this->request->is('post')) {
@@ -56,14 +56,14 @@ class ItemsController extends AppController
             if ($this->Items->save($item)) {
                 $this->Flash->success(__('The item has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'categories', 'action' => 'list',$spaceId,$categoryId]);
             }
             $this->Flash->error(__('The item could not be saved. Please, try again.'));
         }
         $users = $this->Items->Users->find('list', ['limit' => 200]);
         $spaces = $this->Items->Spaces->find('list', ['limit' => 200]);
         $categories = $this->Items->Categories->find('list', ['limit' => 200]);
-        $this->set(compact('item', 'users', 'spaces', 'categories'));
+        $this->set(compact('item', 'users', 'spaces', 'categories','spaceId','categoryId'));
     }
 
     /**
