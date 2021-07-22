@@ -17,7 +17,7 @@
         ?>
         <?= $this->Html->css('monokanri') ?>
         <script src="https://kit.fontawesome.com/31be5e76b2.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        
 
 
         <?= $this->fetch('meta') ?>
@@ -25,7 +25,7 @@
         <?= $this->fetch('script') ?>
     </head>
 
-<body>
+<body class="bg-light">
 
     <div class="container-fluid">
         <div class="row">
@@ -34,8 +34,8 @@
             </div>
             <div class="col-md offset-md-2 p-0" class="height">
                 <?= $this->element('header') ?>
-                <?= $this->Flash->render() ?>
-                <div class="main bg-light p-3">
+                <div class="main p-3">
+                    <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
                 </div>
             </div>
@@ -43,6 +43,8 @@
     </div>
     <footer>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <?= $this->Html->script('app') ?>
 </body>
 
 </html>
