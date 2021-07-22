@@ -7,6 +7,10 @@
 ?>
 <?= $this->Html->link('新しいスペースを追加', ['controller' => 'spaces', 'action' => 'add', 'prefix' => false], ['escape' => false, 'class' => 'btn btn-primary mb-3']) ?>
 
+<div id="app">
+    <input v-model="message" placeholder="edit me">
+    <p> {{message}} </p>
+</div>
 
 <div class="container-fluid">
     <div class="row">
@@ -34,15 +38,15 @@
     </div>
 </div>
 <div class="paginator mt-3">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
+    <ul class="pagination">
+        <?= $this->Paginator->first('<< ' . __('first')) ?>
+        <?= $this->Paginator->prev('< ' . __('previous')) ?>
+        <?= $this->Paginator->numbers() ?>
+        <?= $this->Paginator->next(__('next') . ' >') ?>
+        <?= $this->Paginator->last(__('last') . ' >>') ?>
+    </ul>
+    <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+</div>
 
 <div class="spaces index large-9 medium-8 columns content">
     <h3><?= __('Spaces') ?></h3>
@@ -74,5 +78,5 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    
+
 </div>
