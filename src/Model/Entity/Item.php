@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -38,6 +39,7 @@ class Item extends Entity
         'category_id' => true,
         'created' => true,
         'modified' => true,
+        'image' => true,
         'user' => true,
         'space' => true,
         'category' => true,
