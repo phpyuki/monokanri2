@@ -63,7 +63,20 @@ class ItemsController extends AppController
     {
         $item = $this->Items->newEntity();
         if ($this->request->is('post')) {
-            $item = $this->Items->patchEntity($item, $this->request->getData());
+            $file = $this->request->getData('image'); //受け取り
+			$filePath = '../webroot/img/' . date("YmdHis") . $file['name'];
+			move_uploaded_file($file['tmp_name'], $filePath); //ファイル名の先頭に時間をくっつけて/webroot/imgに移動させる
+
+            $data = [
+				'user_id' => $this->request->getData('user_id'),
+				'name' => $this->request->getData('name'),
+				'memo' => $this->request->getData('memo'),
+				'category_id' => $this->request->getData('category_id'),
+				'space_id' => $this->request->getData('space_id'),
+				'image' => date("YmdHis") . $file['name'] //同様の形でDBに入れる
+			];
+
+            $item = $this->Items->patchEntity($item, $data);
             if ($this->Items->save($item)) {
                 $this->Flash->success(__('The item has been saved.'));
 
