@@ -10,10 +10,10 @@
     <fieldset>
         <legend><?= __('Edit Category') ?></legend>
         <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('user_id', ['options' => $users]);
-            echo $this->Form->control('space_id', ['options' => $spaces]);
-            echo $this->Form->control('parent_id', ['options' => $parentCategories, 'empty' => true]);
+            echo $this->Form->control('name',['label' => '名前']);
+            echo $this->Form->hidden('user_id', ['default' => $authuser['id']]);
+            echo $this->Form->control('space_id', ['label' => '場所' ,'options' => $spaces]);
+            echo $this->Form->control('parent_id', ['label'=> '親カテゴリー','options' => $parentCategories, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -6,22 +6,7 @@
  */
 ?>
 
-<div class="row">
-    <?php foreach ($categories as $category) : ?>
-        <?php if ($category->user_id == $authuser['id'] && !($category->parent_id)) : ?>
-            <div class="col-sm-4">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $category->name ?></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <?= $this->Html->link('view', ['controller' => 'categories', 'action' => 'view', $category->id, 'prefix' => false], ['escape' => false, 'class' => 'btn-primary btn rounded-pill']) ?>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</div>
+
 <div class="categories index large-9 medium-8 columns content">
     <h3><?= __('Categories') ?></h3>
     <table class="table" cellpadding="0" cellspacing="0">
@@ -48,8 +33,12 @@
                     <td><?= h($category->created) ?></td>
                     <td><?= h($category->modified) ?></td>
                     <td class="actions">
+                        <?= $this->Html->link('見る', [
+                            'controller' => 'categories', 'action' => 'list',
+                            $category->space_id, $category->id, 'prefix' => false
+                        ], ['escape' => false, 'class' => 'btn-success btn']) ?>
                         <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id]) ?>
+                        <?= $this->Html->link(__('編集'), ['action' => 'edit', $category->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]) ?>
                     </td>
                 </tr>
