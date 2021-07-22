@@ -97,9 +97,9 @@ class CategoriesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($spaceId = null, $categoryId = null)
     {
-        $category = $this->Categories->get($id, [
+        $category = $this->Categories->get($categoryId, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -107,7 +107,7 @@ class CategoriesController extends AppController
             if ($this->Categories->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'list',$spaceId, $category->parent_id]);
             }
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
